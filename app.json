@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "DelivExpress",
+    "slug": "delivexpress",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#3D5AFE"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {},
+    "web": {},
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}
