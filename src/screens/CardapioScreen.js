@@ -11,6 +11,17 @@ import {
 } from 'react-native';
 import { cores } from '../constants/cores';
 import { produtos } from '../data/produtos';
+import { imagensLocais } from '../data/imagens';
+
+// Resolve o campo `imagem` do produto:
+// - se começar com "http", é uma imagem remota -> usa { uri }
+// - senão, é uma chave do mapa de imagens locais -> usa o require()
+function resolverImagem(imagem) {
+  if (typeof imagem === 'string' && imagem.startsWith('http')) {
+    return { uri: imagem };
+  }
+  return imagensLocais[imagem];
+}
 
 // Formata número no padrão R$ 00,00 (RF01)
 function formatarPreco(valor) {
@@ -23,7 +34,7 @@ function ProdutoCard({ produto, onAdicionar }) {
   return (
     <View style={styles.card}>
       <Image
-        source={{ uri: produto.imagem }}
+        source={resolverImagem(produto.imagem)}
         style={styles.imagem} // imagem remota exige width/height (RF04)
       />
       <View style={styles.infoProduto}>
