@@ -25,7 +25,28 @@ export default function App() {
     });
   }
 
-  // Total de itens para o contador do cardápio, em tempo real (RF03)
+  function incrementarQuantidade(produtoId) {
+    setCarrinho((itensAtuais) =>
+      itensAtuais.map((item) =>
+        item.produto.id === produtoId
+          ? { ...item, quantidade: item.quantidade + 1 }
+          : item
+      )
+    );
+  }
+
+  function decrementarQuantidade(produtoId) {
+    setCarrinho((itensAtuais) =>
+      itensAtuais
+        .map((item) =>
+          item.produto.id === produtoId
+            ? { ...item, quantidade: item.quantidade - 1 }
+            : item
+        )
+        .filter((item) => item.quantidade > 0)
+    );
+  }
+
   const totalItensCarrinho = carrinho.reduce((total, item) => total + item.quantidade, 0);
 
   function limparCarrinhoEVoltar() {
@@ -46,7 +67,13 @@ export default function App() {
       )}
 
       {telaAtual === 'carrinho' && (
-        <CarrinhoScreen carrinho={carrinho} onVoltar={() => setTelaAtual('cardapio')} />
+        <CarrinhoScreen
+          carrinho={carrinho}
+          onIncrementar={incrementarQuantidade}
+          onDecrementar={decrementarQuantidade}
+          onVoltar={() => setTelaAtual('cardapio')}
+          onContinuar={() => setTelaAtual('checkout')}
+        />
       )}
 
       {telaAtual === 'checkout' && (
