@@ -8,6 +8,7 @@ import ConfirmacaoScreen from './src/screens/ConfirmacaoScreen';
 export default function App() {
   const [telaAtual, setTelaAtual] = useState('cardapio');
   const [carrinho, setCarrinho] = useState([]);
+  const [dadosEntrega, setDadosEntrega] = useState(null);
 
   function adicionarProduto(produto) {
     setCarrinho((itensAtuais) => {
@@ -25,6 +26,7 @@ export default function App() {
     });
   }
 
+  // Aumenta a quantidade de um item já existente no carrinho (RF07)
   function incrementarQuantidade(produtoId) {
     setCarrinho((itensAtuais) =>
       itensAtuais.map((item) =>
@@ -35,6 +37,7 @@ export default function App() {
     );
   }
 
+  // Diminui a quantidade de um item; ao chegar em 0, o item é removido (RF07)
   function decrementarQuantidade(produtoId) {
     setCarrinho((itensAtuais) =>
       itensAtuais
@@ -47,10 +50,19 @@ export default function App() {
     );
   }
 
+  // Total de itens para o contador do cardápio, em tempo real (RF03)
   const totalItensCarrinho = carrinho.reduce((total, item) => total + item.quantidade, 0);
+
+  // Chamado pelo Checkout quando a validação passa (RF15). Guarda os dados
+  // de entrega para a tela de Confirmação usar na Aula 4 (RF16).
+  function finalizarPedido(dados) {
+    setDadosEntrega(dados);
+    setTelaAtual('confirmacao');
+  }
 
   function limparCarrinhoEVoltar() {
     setCarrinho([]);
+    setDadosEntrega(null);
     setTelaAtual('cardapio');
   }
 
@@ -77,11 +89,15 @@ export default function App() {
       )}
 
       {telaAtual === 'checkout' && (
-        <CheckoutScreen onVoltar={() => setTelaAtual('carrinho')} />
+        <CheckoutScreen
+          totalItensCarrinho={totalItensCarrinho}
+          onVoltar={() => setTelaAtual('carrinho')}
+          onFinalizar={finalizarPedido}
+        />
       )}
 
       {telaAtual === 'confirmacao' && (
-        <ConfirmacaoScreen onNovoPedido={limparCarrinhoEVoltar} />
+        <ConfirmacaoScreen carrinho={carrinho} dadosEntrega={dadosEntrega} onNovoPedido={limparCarrinhoEVoltar} />
       )}
     </>
   );
