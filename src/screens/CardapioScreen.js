@@ -63,9 +63,12 @@ export default function CardapioScreen({
 }) {
   const [busca, setBusca] = useState('');
 
-  // Filtro por nome (RF05 — desejável, ponto extra)
-  const produtosFiltrados = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(busca.toLowerCase())
+  // Filtro por nome ou descrição (RF05 — desejável, ponto extra)
+  const termoBusca = busca.toLowerCase();
+  const produtosFiltrados = produtos.filter(
+    (produto) =>
+      produto.nome.toLowerCase().includes(termoBusca) ||
+      produto.descricao.toLowerCase().includes(termoBusca)
   );
 
   return (

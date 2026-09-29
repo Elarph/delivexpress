@@ -8,12 +8,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import { cores } from '../constants/cores';
+import { formatarPreco, calcularTotais } from '../utils/calculos';
 
-const TAXA_ENTREGA = 6.0;
-
-function formatarPreco(valor) {
-  return `R$ ${valor.toFixed(2).replace('.', ',')}`;
-}
 
 function ItemCarrinho({ item, onIncrementar, onDecrementar }) {
   const subtotalItem = item.produto.preco * item.quantidade;
@@ -61,13 +57,8 @@ export default function CarrinhoScreen({
 }) {
   const carrinhoVazio = carrinho.length === 0;
 
-  const subtotal = carrinho.reduce(
-    (total, item) => total + item.produto.preco * item.quantidade,
-    0
-  );
-  const taxaEntrega = carrinhoVazio ? 0 : TAXA_ENTREGA;
-  const total = subtotal + taxaEntrega;
-
+  const { subtotal, taxaEntrega, total } = calcularTotais(carrinho);
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
