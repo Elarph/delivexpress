@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   textoErro: {
-    fontSize: 13,
+    fontSize: 14,
     color: cores.erro,
     marginTop: 4,
   },

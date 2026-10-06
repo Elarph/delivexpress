@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     color: cores.escura,
   },
   itemPrecoUnitario: {
-    fontSize: 13,
+    fontSize: 14,
     color: cores.secundaria,
     marginTop: 2,
   },

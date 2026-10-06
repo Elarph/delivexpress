@@ -14,10 +14,17 @@
     "ios": {
       "supportsTablet": false
     },
-    "android": {},
+    "android": {
+      "package": "com.elarph.delivexpress"
+    },
     "web": {},
     "plugins": [
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "effaf5a1-862f-437e-8b94-0c88a9f21bf4"
+      }
+    }
   }
 }

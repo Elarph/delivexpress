@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   textoBotaoAdicionar: {
     color: cores.branco,
     fontWeight: 'bold',
-    fontSize: 13,
+    fontSize: 14,
   },
   textoVazio: {
     textAlign: 'center',
